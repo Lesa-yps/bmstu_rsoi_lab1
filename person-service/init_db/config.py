@@ -1,8 +1,9 @@
-# параметры подключения
+# параметры подключения к рабочей БД
 
-# параметры для рабочей БД
-host = "localhost"
-user = "program"
-password = "test"
-port = 5431
-db_name = "persons"
+import os
+
+host = os.getenv("DB_HOST", "localhost")
+user = os.getenv("DB_USER", "program")
+password = os.getenv("DB_PASSWORD", "test")
+port = int(os.getenv("DB_PORT", "5431"))
+db_name = os.getenv("DB_NAME", "persons")
