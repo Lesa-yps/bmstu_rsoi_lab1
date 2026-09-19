@@ -15,7 +15,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      # TODO build, test and deploy project
+      # build, test and deploy project
+      - name: Build Docker image
+        run: docker build -t person-service .
+
+      - name: Run unit tests
+        run: pytest person-service/tests/ -v
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy to Railway
+        run: railway up --service=${{ secrets.RAILWAY_SERVICE_ID }} --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
