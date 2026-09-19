@@ -20,7 +20,9 @@ jobs:
         run: docker build -t person-service .
 
       - name: Run unit tests
-        run: pytest person-service/tests/ -v
+        run: |
+          pip install -r requirements.txt
+          pytest person-service/tests/ -v
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
